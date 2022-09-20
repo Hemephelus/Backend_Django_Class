@@ -1,7 +1,18 @@
 {% extends 'my_blog_app/base.html'%}
 
+{% block side-bar %}
+    <div class="col-8 h-100" style="height: 500px;">
+        <div class="bg-light mt-2 mb-2">
+          <h1>{{last_post.title}}</h1>
+          <h3>{{last_post.owner.username}}</h3>
+          <p>{{last_post.date_created}}</p>
+          <p>{{last_post.body}}</p>
+        </div>  
+    </div>
+{% endblock side-bar %}
+
 {% block main-content %}
-      <div class="col-6">
+      <div class="col-4">
         {% for post in all_posts %}
         <a class="nav-link active" aria-current="page" href="{% url 'lastpostpage' post.id %}">
         <div class="bg-light mt-2 mb-2">
@@ -12,6 +23,4 @@
         </a>
         {% endfor %}
       </div>
-  
-
-  {% endblock main-content %}
+{% endblock main-content %}

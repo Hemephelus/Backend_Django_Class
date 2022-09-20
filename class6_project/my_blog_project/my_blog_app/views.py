@@ -8,11 +8,18 @@ from django.contrib import messages
 
 def home(request):
     posts = Post.objects.all()
-    return render(request,'my_blog_app/home.html', {'posts':posts})
+    post = Post.objects.last()
+    context ={'all_posts':posts,'last_post':post}
+    return render(request,'my_blog_app/home.html', context)
 
+def last_post(request,pk):
+    posts = Post.objects.all()
+    post = Post.objects.filter(id=pk).first()
+    context ={'all_posts':posts,'last_post':post}
+    return render(request,'my_blog_app/last-post.html', context)
 
-def past_page(request):
-    post = Post.objects.first()
+def post_page(request,pk):
+    post = Post.objects.filter(id=pk).first()
     return render(request,'my_blog_app/PostPage.html', {'post':post})
 
 def signup(request):
