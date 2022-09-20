@@ -1,12 +1,11 @@
 from email import message
 from django.shortcuts import render,redirect
 from .models import Post
-from django.contrib.auth.forms import UserCreationForm
+from .forms import SignUpForm
 from django.contrib import messages
 
 # Create your views here.
 
-1
 def home(request):
     posts = Post.objects.all()
     return render(request,'my_blog_app/home.html', {'posts':posts})
@@ -18,7 +17,7 @@ def past_page(request):
 
 def signup(request):
     if request.method == 'POST':
-        form = UserCreationForm(request.POST)
+        form = SignUpForm(request.POST)
         if form.is_valid():
             username = form.cleaned_data.get('username')
             form.save()
@@ -26,6 +25,6 @@ def signup(request):
             return redirect('homepage')
 
     else:
-        form = UserCreationForm()
+        form = SignUpForm()
 
     return render(request,'my_blog_app/signup.html', {'form':form})
